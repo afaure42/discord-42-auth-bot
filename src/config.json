@@ -1,0 +1,9 @@
+{
+	"guild_id": "",
+	"button_channel_id": "",
+	"role_id": "",
+	"auth_server": {
+		"port": 0,
+		"self_uri": ""
+	}
+}

@@ -1,5 +1,5 @@
 const { readFileSync, writeFileSync } = require("node:fs");
-import * as auth_list from "./users.json";
+import { auth_server } from "../config.json";
 
 export function readDB(path: string) {
     try {
@@ -32,6 +32,6 @@ export function initAuth(discordUserId: string) {
 	const code = generateUniqueCode();
 	db.push({ code: code, id: discordUserId });
 	writeDB("./src/auth/users.json", db);
-	const url = "https://auth." + process.env.DOMAIN + "?user_code=" + code;
+	const url = auth_server.self_uri + "?user_code=" + code;
 	return url;
 }

@@ -3,14 +3,13 @@ import {
 	ButtonBuilder,
 	ButtonStyle,
 	EmbedBuilder,
-	Message,
 	MessageActionRowComponentBuilder,
 } from "discord.js";
 import { Client } from "discordx";
-import { auth } from "./config.json";
+import { button_channel_id } from "./config.json";
 
 export async function create_buttons(client: Client) {
-	const channel = await client.channels.fetch(auth.auth_channel);
+	const channel = await client.channels.fetch(button_channel_id);
 	if (channel && channel.isTextBased()) {
 		const message = await channel.messages.fetch({ limit: 1 });
 		if (message.size != 0) {
