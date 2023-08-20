@@ -1,6 +1,6 @@
 # 0) Before use
-This is a fork of the [LLD's discord bot](https://github.com/BDE-LLD/discord_bot_ts) epure of all the useless stuff. It's a simple bot that can be used to authenticate users on a discord server using their intranet account.
-/!\ The code is not absolutely clean, it's only a clean version of the original bot to simplify the use of the authentication system.
+This is a fork of the [LLD's discord bot](https://github.com/BDE-LLD/discord_bot_ts) epure of all the useless stuff. It's a simple bot that can be used to authenticate users on a discord server using their 42 intranet account.
+/!\ The code is not absolutely clean, it's only an epured version of the original bot to simplify the use of the authentication system.
 
 # 1) Install
 - Clone the repo
