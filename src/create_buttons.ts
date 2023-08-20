@@ -19,7 +19,8 @@ export async function create_buttons(client: Client) {
 			.setTitle("Authentification")
 			.setDescription(
 				"Clique sur le bouton ci-dessous pour te connecter avec ton compte 42 et profiter pleinement de ce Discord !"
-			);
+			)
+			.setFooter({text: "Originally created for LLD, by shocquen, dhubleur and tbrowang with <3"});
 
 		const btn = new ButtonBuilder()
 			.setLabel("Authentification")
