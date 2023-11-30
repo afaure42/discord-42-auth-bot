@@ -1,9 +1,9 @@
 {
-	"guild_id": "",
-	"button_channel_id": "",
-	"role_id": "",
+	"guild_id": "976838641013903420",
+	"button_channel_id": "976839716425064498",
+	"role_id": "1047155531959255070",
 	"auth_server": {
 		"port": 0,
-		"self_uri": ""
+		"self_uri": "http://64.226.94.110"
 	}
 }
