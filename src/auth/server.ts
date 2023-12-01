@@ -8,6 +8,8 @@ import http from "http";
 import { readDB } from "./auth_manager";
 import { guild_id, role_id, auth_server} from "../config.json";
 import { IUser } from "42.js/dist/structures/user";
+import { ICampus } from "42.js/dist/structures/campus";
+import { ICampusUser, InvalidCampusError } from "./custom_types";
 
 async function getUserInformations(
 	token: string,
@@ -26,21 +28,28 @@ async function getUserInformations(
 			const db = readDB("./src/auth/users.json");
 			console.log(res.data.login + " logged !");
 			const found = db.find((o: any) => o.code === user_code);
-			validateAuth(found.id, res.data, client);
+			await validateAuth(found.id, res.data, res.data.campus_users, client);
 			user_res.status(200).send("Bienvenue " + res.data.login + "!");
 		})
-		.catch((err: any) => {
-			console.error("Impossible to get user's informations:");
-			console.log(err);
-			user_res
-				.status(400)
-				.send("Désolé, nous n'avons pas pu récupérer tes informations");
+		.catch((err) => {
+			if (err instanceof(InvalidCampusError)) {
+				user_res
+					.status(403)
+					.send("You dont have Paris as your primary campus");
+			} else {
+				console.error("Impossible to get user's informations:");
+				console.log(err);
+				user_res
+					.status(400)
+					.send("Désolé, nous n'avons pas pu récupérer tes informations");
+			}
 		});
 }
 
 async function validateAuth(
 	discordUserId: string,
 	user: IUser,
+	campusUsers : ICampusUser[],
 	client: Client
 ) {
 	const guild = await client.guilds.fetch(guild_id);
@@ -48,8 +57,16 @@ async function validateAuth(
 
 	try {
 		member.roles.add(role_id);
+		for (let campus of campusUsers) {
+			console.log(JSON.stringify(campus))
+			if (campus.is_primary && campus.campus_id != 1) { //paris's campus id is 1
+				throw new InvalidCampusError()
+			}
+		}
 		console.log(`${user.login} is set up`);
 	} catch (err) {
+		if (err instanceof(InvalidCampusError))
+			throw err;
 		console.error(err);
 	}
 }
